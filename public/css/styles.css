@@ -1,0 +1,83 @@
+
+/*body {*/
+/*    font-family: Arial, sans-serif;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    background-color: #f4f4f4;*/
+/*    color: #333;*/
+/*}*/
+
+/*header, footer {*/
+/*    background-color: #333;*/
+/*    color: white;*/
+/*    text-align: center;*/
+/*    padding: 1rem;*/
+/*}*/
+
+/*h1, h2, h3 {*/
+/*    color: #333;*/
+/*}*/
+
+/*a {*/
+/*    text-decoration: none;*/
+/*    color: #007BFF;*/
+/*}*/
+
+/*a:hover {*/
+/*    color: #0056b3;*/
+/*}*/
+
+/*.container {*/
+/*    max-width: 800px;*/
+/*    margin: 0 auto;*/
+/*    padding: 20px;*/
+/*    background-color: white;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*form {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*form input {*/
+/*    padding: 10px;*/
+/*    margin-bottom: 10px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*form input[type="submit"] {*/
+/*    background-color: #28a745;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    padding: 10px;*/
+/*    transition: background-color 0.3s ease;*/
+/*}*/
+
+/*form input[type="submit"]:hover {*/
+/*    background-color: #218838;*/
+/*}*/
+
+/*ul {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*}*/
+
+/*li {*/
+/*    margin-bottom: 20px;*/
+/*    padding: 15px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*    background-color: #fff;*/
+/*}*/
+
+/*li h3 {*/
+/*    margin: 0;*/
+/*    color: #007BFF;*/
+/*}*/
+
+/*li p {*/
+/*    color: #666;*/
+/*}*/

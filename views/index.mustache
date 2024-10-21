@@ -1,0 +1,17 @@
+
+{{> header}}
+
+<h1>{{ heading }}</h1>
+<p>{{ message }}</p>
+
+<h2>Blog Previews:</h2>
+<ul>
+    {{#blogs}}
+        <li>
+            <h3><a href="/blogs/{{id}}">{{title}}</a></h3>
+            <p>{{summary}}</p>
+        </li>
+    {{/blogs}}
+</ul>
+
+{{> footer}}
