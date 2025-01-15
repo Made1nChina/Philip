@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Blog Management</title>
+</head>
+<body>
+    <h1>Your Blogs</h1>
+    <a href="/blog/new"><button>Create New Blog</button></a>
+    <ul>
+        {{#blogs}}
+            <li>
+                <h2>{{title}}</h2>
+                <p>{{short_text}}</p>
+                <small>Author: {{autor}} | Date: {{create_date}}</small>
+                <a href="/blog/edit/{{id}}">
+                    <button>Edit</button>
+                </a>
+            </li>
+        {{/blogs}}
+        {{^blogs}}
+            <p>No blogs found.</p>
+        {{/blogs}}
+    </ul>
+</body>
+</html>

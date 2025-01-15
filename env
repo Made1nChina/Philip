@@ -1,0 +1,5 @@
+DB_HOST=dpg-dpg-cu2en5t6l47c73c21l10-a.frankfurt-postgres.render.com
+DB_USER=carblog
+DB_PASS=zV0ATeBdiYNcbQZKPWvTnhoq21QGt59z
+DB_DATABASE=carblog_db_2oh0
+DB_PORT=5432

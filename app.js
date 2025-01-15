@@ -8,20 +8,22 @@ const sessions = require("express-session");
 const multer = require("multer");
 const upload = multer({ dest: "public/uploads/" });
 const bcrypt = require("bcrypt");
-const mariadb = require("mariadb");
 
-const pool = mariadb.createPool({
-  host: 'nexdu.ch',
-  user: 'ebuchs_bbz',
-  password: 'K5p68o6b@',
-  database: 'ebuchs_bbz',
-  connectionLimit: 5
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    host: 'dpg-cstfuhd6l47c73eke6cg-a.frankfurt-postgres.render.com',
+    user: 'carblog',
+    password: 'dlXba1sz4b0xTwUmr8sZV2Oso7G9YLNx',
+    database: 'carblog_db_2oh0',
+    max: 5 // Entspricht connectionLimit in MariaDB
 });
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var registerRouter = require('./routes/register');
 const {Login} = require("./model/login");
 
 var app = express();
@@ -58,9 +60,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', loginRouter);
-app.use('/dashboard', indexRouter);
+app.use('/', indexRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 app.use('/users', usersRouter);
+
 
 
 // catch 404 and forward to error handler

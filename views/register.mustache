@@ -1,15 +1,15 @@
 {{> header}}
 
 <h1> Register </h1>
-
-<form action="/register" enctype="multipart/form-data" method="post">
-    Username: <input type="text" name="email"><br>
-    Password: <input type="password" name="passwort"><br>
-    Profile Picture: <input type="text" name="profile_picture"><br>
+{{#error}}
+    <p style="color: red;">{{error}}</p>
+{{/error}}
+<form action="/register" method="post">
+    Username: <input type="text" name="username" required><br>
+    Password: <input type="password" name="password" required><br>
     Firstname: <input type="text" name="first_name"><br>
     Lastname: <input type="text" name="last_name"><br>
-    Info: <input type="text" name="info"><br>
-    <input type="submit">
+    <input type="submit" value="Register">
 </form>
 
 {{> footer}}

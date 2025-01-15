@@ -19,8 +19,8 @@ class Login {
 
         const placeholders = [];
         for (let i = 0; i < this.columns.length; i++) {
-            //placeholders.push(`$${i + 1}`);
-            placeholders.push(`?`);
+            placeholders.push(`$${i + 1}`);
+            //placeholders.push(`?`);
         }
 
         const result = await this.pool.query(
@@ -30,7 +30,7 @@ class Login {
             values,
         );
         const users = await this.pool.query(
-            `SELECT * FROM ${this.table} WHERE id = ?`,
+            `SELECT * FROM ${this.table} WHERE id = $1`,
             [result.id],
         );
         return users;
@@ -41,7 +41,7 @@ class Login {
             return false;
         }
         const users = await this.pool.query(
-            `SELECT * FROM ${this.table} WHERE id = ?`,
+            `SELECT * FROM ${this.table} WHERE id = $1`,
             [req.session.userid],
         );
         if (users.length < 1) {
@@ -54,14 +54,14 @@ class Login {
         const username = req.body[this.usernameColumn];
         const password = req.body[this.passwordColumn];
         const users = await this.pool.query(
-            `SELECT * FROM ${this.table} WHERE ${this.usernameColumn} = ?`,
+            `SELECT * FROM ${this.table} WHERE ${this.usernameColumn} = $1`,
             [username],
         );
         if (users.length < 1) {
             return false;
         }
-        const user = users[0];
-        console.log(password);
+        const user = users.rows[0];
+        console.log(user);
         const correct = await bcrypt.compare(password, user[this.passwordColumn]);
         if (correct) {
             req.session.userid = user.id.toString();
