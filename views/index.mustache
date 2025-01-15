@@ -6,12 +6,16 @@
 
 <h2>Blog Previews:</h2>
 <ul>
-    {{#blogs}}
+    {{#blog}}
         <li>
-            <h3><a href="/blogs/{{id}}">{{title}}</a></h3>
-            <p>{{summary}}</p>
+            <h3>{{title}}</h3>
+            <p>{{short_text}}</p>
+            {{#preview_image}}
+                <img src="{{preview_image}}" alt="Preview Image" style="max-width: 200px;" />
+            {{/preview_image}}
+            <a href="/dashboard/blog/{{id}}">Read More</a>
         </li>
-    {{/blogs}}
+    {{/blog}}
 </ul>
 
 {{> footer}}

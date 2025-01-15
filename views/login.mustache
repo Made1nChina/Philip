@@ -4,10 +4,14 @@
 
 <p>Alllo</p>
 
-<form action="/login" enctype="multipart/form-data" method="post">
-    Username: <input type="text" name="email"><br>
-    Password: <input type="password" name="passwort"><br>
-    <input type="submit">
+<form action="/login" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
+
+    <button type="submit">Login</button>
 </form>
 
 {{> footer}}

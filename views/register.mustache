@@ -5,11 +5,19 @@
     <p style="color: red;">{{error}}</p>
 {{/error}}
 <form action="/register" method="post">
-    Username: <input type="text" name="username" required><br>
-    Password: <input type="password" name="password" required><br>
-    Firstname: <input type="text" name="first_name"><br>
-    Lastname: <input type="text" name="last_name"><br>
-    <input type="submit" value="Register">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
+
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" required />
+
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name" name="last_name" required />
+
+    <button type="submit">Register</button>
 </form>
 
 {{> footer}}

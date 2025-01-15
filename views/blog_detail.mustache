@@ -1,15 +1,7 @@
+<h1>{{blog.title}}</h1>
+<p>{{blog.content}}</p>
+{{#blog.preview_image}}
+    <img src="{{blog.preview_image}}" alt="Preview Image" style="max-width: 100%;" />
+{{/blog.preview_image}}
 
-{{> header}}
-
-<h1>{{title}}</h1>
-<p><strong>Author:</strong> {{author}}</p>
-<p><strong>Date:</strong> {{date}}</p>
-
-<div>
-    <h3>Content:</h3>
-    <p>{{content}}</p>
-</div>
-
-<a href="/">Back to Home</a>
-
-{{> footer}}
+<a href="/dashboard">Back to Dashboard</a>

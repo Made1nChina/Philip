@@ -1,10 +1,12 @@
-create table blog (
-                      id SERIAL PRIMARY KEY,
-                      title varchar(32) not null,
-                      short_text varchar(256) not null,
-                      autor varchar(32),
-                      long_text varchar(2048) not null,
-                      create_date date default now()
+CREATE TABLE blog (
+                       id SERIAL PRIMARY KEY,
+                       user_id INT NOT NULL,
+                       title TEXT NOT NULL,
+                       short_text TEXT NOT NULL,
+                       long_text TEXT,
+                       preview_image TEXT,
+                       create_date TIMESTAMP DEFAULT NOW(),
+                       FOREIGN KEY (user_id) REFERENCES users (id)
 );
 create table register (
                       id SERIAL PRIMARY KEY,

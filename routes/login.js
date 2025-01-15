@@ -1,43 +1,34 @@
-var express = require('express');
-const multer = require("multer");
-const bcrypt = require("bcrypt");
+var express = require("express");
 var router = express.Router();
 
-const upload = multer({ dest: "public/uploads/" });
-
-/* Login */
+/* Render login page */
 router.get("/", (req, res) => {
-    res.render("login");
+    res.render("login"); // Render the login view
 });
 
-/* redirect to login if the password is wrong and redirect to site if right */
-router.post("/login", upload.none(), async (req, res) => {
+/* Handle login */
+router.post("/", async (req, res) => {
+    const { username, password } = req.body;
 
-    const user = await req.login.loginUser(req);
-
-    if (!user) {
-        res.redirect("/");
-        return;
-    } else {
-        res.redirect("/dashboard");
-        return;
+    // Validate input
+    if (!username || !password) {
+        return res.status(400).send("username and password are required.");
     }
-});
 
-/* Register */
-router.get("/register", (req, res) => {
-    res.render("register");
-});
+    try {
+        // Check user credentials
+        const user = await req.login.loginUser(req);
 
-router.post("/register", upload.none(), async (req, res) => {
-    const user = await req.login.registerUser(req);
+        if (!user) {
+            // Redirect to login page if authentication fails
+            return res.redirect("/login");
+        }
 
-    if (user) {
+        // Redirect to dashboard or homepage on success
         res.redirect("/");
-        return;
-    } else {
-        res.redirect("/register");
-        return;
+    } catch (err) {
+        console.error("Error during login:", err);
+        res.status(500).send("Internal Server Error");
     }
 });
 

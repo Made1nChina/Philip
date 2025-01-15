@@ -1,86 +1,87 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var mustacheExpress = require('mustache-express');
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const mustacheExpress = require("mustache-express");
 const sessions = require("express-session");
 const multer = require("multer");
-const upload = multer({ dest: "public/uploads/" });
-const bcrypt = require("bcrypt");
+const { Pool } = require("pg");
 
-const { Pool } = require('pg');
+// Import routers
+const indexRouter = require("./routes/index");
+const loginRouter = require("./routes/login");
+const registerRouter = require("./routes/register");
+const dashboardRouter = require("./routes/dashboard");
+const usersRouter = require("./routes/users");
 
+// Import models
+const Login = require("./model/login");
+
+// Initialize the app
+const app = express();
+
+// Database pool setup
 const pool = new Pool({
-    host: 'dpg-cstfuhd6l47c73eke6cg-a.frankfurt-postgres.render.com',
-    user: 'carblog',
-    password: 'dlXba1sz4b0xTwUmr8sZV2Oso7G9YLNx',
-    database: 'carblog_db_2oh0',
-    max: 5 // Entspricht connectionLimit in MariaDB
+    host: "dpg-cu2en5t6l47c73c21l10-a.frankfurt-postgres.render.com",
+    user: "carblog",
+    password: "zV0ATeBdiYNcbQZKPWvTnhoq21QGt59z",
+    database: "carblog_db_2oh0",
+    port: 5432,
+    ssl: {
+        rejectUnauthorized: false, // Disable strict certificate validation
+    },
 });
 
+// Multer setup for file uploads
+const upload = multer({ dest: "public/uploads/" });
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var registerRouter = require('./routes/register');
-const {Login} = require("./model/login");
+// Set up the view engine
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "mustache");
+app.engine("mustache", mustacheExpress());
 
-var app = express();
-
-// View engine setup
-app.set('views', path.join(__dirname, 'views'));  // Ordner für Views
-app.set('view engine', 'mustache');  // Setze Mustache als Template-Engine
-app.engine('mustache', mustacheExpress());  // Verwende mustache-express als Engine
-
-app.use(logger('dev'));
+// Middleware setup
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(express.static(path.join(__dirname, 'public')));
-
+// Configure session middleware
 app.use(
     sessions({
-        secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+        secret: "thisismysecrctekeyfhrgfgrfrty84fwir767", // Use a secure secret in production
         saveUninitialized: true,
-        cookie: { maxAge: 86400000, secure: false },
-        resave: false
+        resave: false,
+        cookie: { maxAge: 86400000, secure: false }, // 1-day expiry
     })
 );
 
+// Attach shared resources to requests
 app.use((req, res, next) => {
-  req.pool = pool; // Der Pool wird der Anforderung hinzugefügt
-  req.login = new Login(
-      "users",
-      ["email", "passwort"],
-      pool
-  );
-  req.upload = upload;
-  next();
+    req.pool = pool; // Attach the database pool
+    req.login = new Login("users", ["username", "password"], pool); // Attach the Login instance
+    req.upload = upload; // Attach Multer for file uploads
+    next();
 });
 
-app.use('/', indexRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/users', usersRouter);
+// Mount routers
+app.use("/", indexRouter);
+app.use("/login", loginRouter);
+app.use("/register", registerRouter);
+app.use("/dashboard", dashboardRouter);
+app.use("/users", usersRouter);
 
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// Error handling for 404
+app.use((req, res, next) => {
+    res.status(404).render("error", { message: "Page Not Found" });
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// Error handling for other errors
+app.use((err, req, res, next) => {
+    console.error("Error stack:", err.stack);
+    res.status(err.status || 500).render("error", { message: "Internal Server Error" });
 });
 
+// Export the app
 module.exports = app;
