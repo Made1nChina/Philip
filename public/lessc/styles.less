@@ -98,7 +98,7 @@ body {
 }
 
 .hero {
-  background-image: url('../../img/hero.jpg');
+  background-image: url('../images/hero.jpg');
   background-size: cover;
   background-position: center;
   height: 60vh;
@@ -210,20 +210,20 @@ body {
     }
 
     .save-button {
-      display: inline-block;
       background: @primary-color;
       color: @heading-color;
       border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
+      border-radius: 25px;
+      padding: 0.7rem 2rem;
       font-size: 1rem;
+      font-weight: bold;
       cursor: pointer;
-      text-align: center;
-      text-transform: uppercase;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      text-decoration: none;
 
       &:hover {
-        background: darken(@primary-color, 10%);
+        background: @text-color;
+        color: @primary-color;
       }
     }
   }
@@ -400,8 +400,8 @@ footer {
       text-align: center;
 
       button {
-        background: #e74c3c; // Red background
-        color: #fff;
+        background: @primary-color;
+        color: @heading-color;
         border: none;
         border-radius: 25px;
         padding: 0.7rem 2rem;
@@ -409,9 +409,11 @@ footer {
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
+        text-decoration: none;
 
         &:hover {
-          background: #c0392b; // Slightly darker red on hover
+          background: @text-color;
+          color: @primary-color;
         }
       }
     }
@@ -439,7 +441,7 @@ footer {
 
   .logout-button {
     background: @primary-color;
-    color: #f4f4f4;
+    color: @text-color;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -469,16 +471,20 @@ footer {
     }
 
     .create-button {
-      background: #e74c3c;
-      color: #fff;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
+      background: @primary-color;
+      color: @heading-color;
+      border: none;
+      border-radius: 25px;
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
       font-weight: bold;
-      transition: background 0.3s;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
 
       &:hover {
-        background: #c0392b;
+        background: @text-color;
+        color: @primary-color;
       }
     }
   }
@@ -521,14 +527,18 @@ footer {
         .edit-button {
           background: @primary-color;
           color: @heading-color;
-          text-decoration: none;
-          padding: 5px 10px;
-          border-radius: 5px;
+          border: none;
+          border-radius: 25px;
+          padding: 0.7rem 2rem;
+          font-size: 1rem;
           font-weight: bold;
-          transition: background 0.3s;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
 
           &:hover {
-            background: darken(@primary-color, 10%);
+            background: @text-color;
+            color: @primary-color;
           }
         }
       }
@@ -580,14 +590,18 @@ footer {
     .save-button {
       background: @primary-color;
       color: @heading-color;
-      padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      border-radius: 25px;
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
 
       &:hover {
-        background: darken(@primary-color, 10%);
+        background: @text-color;
+        color: @primary-color;
       }
     }
   }
@@ -710,15 +724,17 @@ form {
     width: 30%;
     margin-right: 0;
     margin-left: auto;
+    text-decoration: none;
 
     &:hover {
       background: darken(@primary-color, 10%);
+      color: @text-color;
     }
   }
 
   .save-button {
-    background: @primary-color; // Roter Button
-    color: @heading-color; // Helle Schrift
+    background-color: @primary-color;
+    color: @heading-color;
     border: none;
     border-radius: 25px;
     padding: 0.7rem 2rem;
@@ -726,6 +742,7 @@ form {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
 
     &:hover {
       background: darken(@primary-color, 10%); // Dunkleres Rot bei Hover
