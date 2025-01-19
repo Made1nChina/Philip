@@ -3,7 +3,7 @@ const router = express.Router(); // Initialize the router
 const path = require("path");
 const multer = require("multer");
 
-// Middleware to check if the user is logged in
+// Middleware
 function isAuthenticated(req, res, next) {
     if (!req.session || !req.session.userid) {
         return res.redirect("/login"); // Redirect to login if not authenticated
@@ -21,10 +21,10 @@ router.get("/", isAuthenticated, async (req, res) => {
             [userId]
         );
 
-        res.render("dashboard", { blogs: blogs.rows });
+        res.render("dashboard", {blogs: blogs.rows});
     } catch (err) {
         console.error("Error fetching blogs:", err);
-        res.status(500).render("error", { message: "Internal Server Error" });
+        res.status(500).render("error", {message: "Internal Server Error"});
     }
 });
 router.get("/new", isAuthenticated, (req, res) => {
@@ -34,7 +34,9 @@ router.get("/edit/:id", async (req, res) => {
     const blogId = req.params.id;
 
     try {
-        const query = `SELECT * FROM blog WHERE id = $1`;
+        const query = `SELECT *
+                       FROM blog
+                       WHERE id = $1`;
         const result = await req.pool.query(query, [blogId]);
 
         if (result.rows.length === 0) {
@@ -44,7 +46,7 @@ router.get("/edit/:id", async (req, res) => {
 
         const blog = result.rows[0];
         console.log("Fetched blog:", blog); // Debug log
-        res.render("edit_blog", { blog });
+        res.render("edit_blog", {blog});
     } catch (err) {
         console.error("Error fetching blog:", err);
         res.status(500).send("Internal Server Error");
@@ -54,7 +56,7 @@ router.post("/blog", isAuthenticated, async (req, res) => {
     try {
         console.log("Request body received:", req.body);
 
-        const { title, short_text, preview_image, create_date, imagepath } = req.body;
+        const {title, short_text, preview_image, create_date, imagepath} = req.body;
         const userId = req.session.userid;
 
         // Validate input
@@ -63,7 +65,7 @@ router.post("/blog", isAuthenticated, async (req, res) => {
             return res.status(400).send("Title and short text are required.");
         }
 
-        // Log the incoming data
+        // Log
         console.log("Creating a new blog with data:", {
             userId,
             title,
@@ -84,7 +86,7 @@ router.post("/blog", isAuthenticated, async (req, res) => {
         res.redirect("/dashboard");
     } catch (err) {
         console.error("Error creating blog:", err);
-        res.status(500).render("error", { message: "Internal Server Error" });
+        res.status(500).render("error", {message: "Internal Server Error"});
     }
 });
 
@@ -97,7 +99,7 @@ router.get("/logout", (req, res) => {
 
 // Add a new blog
 router.post("/", isAuthenticated, async (req, res) => {
-    const { title, short_text, preview_image } = req.body;
+    const {title, short_text, preview_image} = req.body;
     const userId = req.session.userid;
 
     if (!title) {
@@ -118,8 +120,8 @@ router.post("/", isAuthenticated, async (req, res) => {
 
 // Edit a blog
 router.post("/blog/:id/edit", isAuthenticated, async (req, res) => {
-    const { id } = req.params;
-    const { title, short_text, preview_image } = req.body;
+    const {id} = req.params;
+    const {title, short_text, preview_image} = req.body;
 
     if (!title || !short_text) {
         return res.status(400).send("Title and content are required");
@@ -139,7 +141,7 @@ router.post("/blog/:id/edit", isAuthenticated, async (req, res) => {
 
 // Delete a blog
 router.post("/blog/:id/delete", isAuthenticated, async (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
 
     try {
         await req.pool.query(
@@ -155,7 +157,7 @@ router.post("/blog/:id/delete", isAuthenticated, async (req, res) => {
 
 // View detailed blog page
 router.get("/blog/:id", async (req, res) => {
-    const { id } = req.params;
+    const {id} = req.params;
 
     try {
         const result = await req.pool.query(
@@ -168,7 +170,7 @@ router.get("/blog/:id", async (req, res) => {
         }
 
         const blog = result.rows[0];
-        res.render("blog_detail", { blog });
+        res.render("blog_detail", {blog});
     } catch (err) {
         console.error("Error fetching blog:", err);
         res.status(500).send("Internal Server Error");
@@ -182,7 +184,7 @@ router.get("/new", isAuthenticated, (req, res) => {
 // Route for handling blog creation
 router.post("/new", isAuthenticated, async (req, res) => {
     try {
-        const { title, short_text, preview_image } = req.body;
+        const {title, short_text, preview_image} = req.body;
         const userId = req.session.userid;
 
         // Insert blog into the database
@@ -194,7 +196,7 @@ router.post("/new", isAuthenticated, async (req, res) => {
         res.redirect("/dashboard"); // Redirect back to the dashboard
     } catch (err) {
         console.error("Error creating blog:", err);
-        res.status(500).render("error", { message: "Internal Server Error" });
+        res.status(500).render("error", {message: "Internal Server Error"});
     }
 });
 // Route for rendering the blog edit form
@@ -209,13 +211,13 @@ router.get("/edit/:id", isAuthenticated, async (req, res) => {
         );
 
         if (result.rows.length === 0) {
-            return res.status(404).render("error", { message: "Blog not found" });
+            return res.status(404).render("error", {message: "Blog not found"});
         }
 
-        res.render("edit_blog", { blog: result.rows[0] }); // Pass the blog data to the template
+        res.render("edit_blog", {blog: result.rows[0]}); // Pass the blog data to the template
     } catch (err) {
         console.error("Error fetching blog for editing:", err);
-        res.status(500).render("error", { message: "Internal Server Error" });
+        res.status(500).render("error", {message: "Internal Server Error"});
     }
 });
 
@@ -223,7 +225,7 @@ router.get("/edit/:id", isAuthenticated, async (req, res) => {
 router.post("/edit/:id", isAuthenticated, async (req, res) => {
     try {
         const blogId = req.params.id;
-        const { title, short_text, preview_image } = req.body;
+        const {title, short_text, preview_image} = req.body;
 
         // Update the blog in the database
         await req.pool.query(
@@ -234,7 +236,7 @@ router.post("/edit/:id", isAuthenticated, async (req, res) => {
         res.redirect("/dashboard"); // Redirect back to the dashboard
     } catch (err) {
         console.error("Error updating blog:", err);
-        res.status(500).render("error", { message: "Internal Server Error" });
+        res.status(500).render("error", {message: "Internal Server Error"});
     }
 });
 // Configure Multer
@@ -248,12 +250,12 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage });
+const upload = multer({storage});
 
 // Image upload route
 router.post("/upload-image", upload.single("image"), (req, res) => {
     if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
+        return res.status(400).json({error: "No file uploaded"});
     }
     res.json({
         message: "Image uploaded successfully",
@@ -263,7 +265,7 @@ router.post("/upload-image", upload.single("image"), (req, res) => {
 // save Blog
 router.post("/save-blog/:id?", upload.single("image"), async (req, res) => {
     const blogId = req.params.id; // Optional: If `id` is provided, edit; otherwise, create
-    const { title, shortText, longText } = req.body;
+    const {title, shortText, longText} = req.body;
     const previewImage = req.file ? req.file.filename : null; // Uploaded image filename
     const userId = req.session.userid; // Get user_id from session
 
@@ -276,8 +278,12 @@ router.post("/save-blog/:id?", upload.single("image"), async (req, res) => {
             // Update existing blog
             const query = `
                 UPDATE blog
-                SET title = $1, short_text = $2, long_text = $3, preview_image = COALESCE($4, preview_image)
-                WHERE id = $5 AND user_id = $6
+                SET title         = $1,
+                    short_text    = $2,
+                    long_text     = $3,
+                    preview_image = COALESCE($4, preview_image)
+                WHERE id = $5
+                  AND user_id = $6
             `;
             await req.pool.query(query, [title, shortText, longText || null, previewImage, blogId, userId]);
         } else {
@@ -296,9 +302,6 @@ router.post("/save-blog/:id?", upload.single("image"), async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-
-
-
 
 
 module.exports = router;
