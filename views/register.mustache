@@ -1,23 +1,32 @@
 {{> header}}
 
-<h1> Register </h1>
+<div class="signup-inh">
+<div class="signup-header">
+    <h1> Registrieren </h1>
+</div>
 {{#error}}
     <p style="color: red;">{{error}}</p>
 {{/error}}
 <form action="/register" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
+    <input type="text" id="username" name="username" placeholder="username" required />
 
-    <label for="first_name">First Name:</label>
-    <input type="text" id="first_name" name="first_name" required />
 
-    <label for="last_name">Last Name:</label>
-    <input type="text" id="last_name" name="last_name" required />
+    <input type="password" id="password" name="password" placeholder="password" required />
 
-    <button type="submit">Register</button>
+
+    <input type="text" id="first_name" name="first_name" placeholder="Vorname" required />
+
+
+    <input type="text" id="last_name" name="last_name" placeholder="Nachname" required />
+
+    <button type="submit">Registrieren</button>
 </form>
+</div>
+<div class="signup-img">
+
+</div>
+{{> footer}}
+
 
 {{> footer}}

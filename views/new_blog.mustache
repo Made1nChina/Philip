@@ -1,0 +1,22 @@
+{{> Header}}
+<div class="signup-inh">
+    <div class="signup-header">
+        <h1> Erstelle einen Blog </h1>
+    </div>
+    <form action="/dashboard/save-blog/{{blog.id}}" method="POST" enctype="multipart/form-data">
+
+        <input type="text" id="title" name="title" placeholder="Titel" value="{{blog.title}}" />
+
+        <textarea id="shortText" name="shortText" placeholder="Beschreibung">{{blog.short_text}}</textarea>
+
+        <textarea id="longText" name="longText" placeholder="Hauptinhalt">{{blog.long_text}}</textarea>
+
+        <input type="file" id="image" name="image" />
+
+        <button type="submit" class="save-button">Speichern</button>
+
+    </form>
+</div>
+<div class="signup-img">
+
+</div>

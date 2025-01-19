@@ -33,7 +33,7 @@ const pool = new Pool({
 });
 
 // Multer setup for file uploads
-const upload = multer({ dest: "public/uploads/" });
+const upload = multer({ dest: "/public/uploads" });
 
 // Set up the view engine
 app.set("views", path.join(__dirname, "views"));
@@ -82,6 +82,9 @@ app.use((err, req, res, next) => {
     console.error("Error stack:", err.stack);
     res.status(err.status || 500).render("error", { message: "Internal Server Error" });
 });
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 // Export the app
 module.exports = app;
+

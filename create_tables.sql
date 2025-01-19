@@ -1,10 +1,10 @@
 CREATE TABLE blog (
                        id SERIAL PRIMARY KEY,
                        user_id INT NOT NULL,
-                       title TEXT NOT NULL,
-                       short_text TEXT NOT NULL,
-                       long_text TEXT,
-                       preview_image TEXT,
+                       title varchar(256) NOT NULL,
+                       short_text varchar(256) NOT NULL,
+                       long_text varchar(256),
+                       preview_image varchar(256),
                        create_date TIMESTAMP DEFAULT NOW(),
                        FOREIGN KEY (user_id) REFERENCES users (id)
 );

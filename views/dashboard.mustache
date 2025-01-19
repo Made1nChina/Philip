@@ -1,42 +1,37 @@
-<h1>Welcome to your Dashboard</h1>
+{{> header}}
+<div class="hero">
+</div>
+<div class="dashboard">
+    <h1>Welcome to your Dashboard</h1>
+    <!-- Header Section -->
+    <a href="/dashboard/logout" class="logout-button">Logout</a>
+    <div class="header">
+        <h1>Your Blog Dashboard</h1>
+        <a href="/dashboard/new" class="create-button">Create New Blog</a>
+    </div>
 
-<a href="/dashboard/logout">Logout</a>
+    <!-- Blog List Section -->
+    <div class="blog-list">
+        {{#blogs}}
+            <div class="blog-item">
+                <h2>{{title}}</h2>
+                <p>{{short_text}}</p>
 
-<h2>Your blog</h2>
-<ul>
-    {{#blog}}
-        <li>
-            <h3>{{title}}</h3>
-            <p>{{short_text}}</p>
-            {{#preview_image}}
-                <img src="{{preview_image}}" alt="Preview Image" style="max-width: 200px;" />
-            {{/preview_image}}
-            <p><a href="/dashboard/blog/{{id}}">View Details</a></p>
-            <form action="/dashboard/blog/{{id}}/edit" method="post">
-                <input type="text" name="title" value="{{title}}" />
-                <textarea name="short_text">{{short_text}}</textarea>
-                <input type="text" name="preview_image" value="{{preview_image}}" placeholder="Preview Image URL" />
-                <button type="submit">Save</button>
-            </form>
-            <form action="/dashboard/blog/{{id}}/delete" method="post">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
-    {{/blog}}
-</ul>
+                {{#preview_image}}
+                    <div class="blog-image">
+                        <img src="/uploads/{{preview_image}}" alt="{{title}}"/>
+                    </div>
+                {{/preview_image}}
 
-<h2>Create a New Blog</h2>
-<form action="/dashboard/blog" method="post">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" placeholder="Enter the blog title" required />
+                <div class="blog-actions">
+                    <a href="/dashboard/edit/{{id}}" class="edit-button">Edit</a>
+                </div>
+            </div>
+        {{/blogs}}
+    </div>
 
-    <label for="short_text">Short Text:</label>
-    <textarea id="short_text" name="short_text" placeholder="Write your blog short text" required></textarea>
-
-    <label for="preview_image">Preview Image URL:</label>
-    <input type="text" id="preview_image" name="preview_image" placeholder="Enter a URL for the preview image" />
-
-
-    <button type="submit">Create Blog</button>
-</form>
-
+    {{^blogs}}
+        <p>No blogs found. Click "Create New Blog" to start writing!</p>
+    {{/blogs}}
+</div>
+{{> footer}}

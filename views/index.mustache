@@ -1,21 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <script src="/js/upload.js"></script>
+</head>
+<body style="background: #0e1013">
+<div class="header">
+    <div class="header-box"></div>
+    <nav class="center">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Registrieren</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="header">
+    <div class="right">
+        <div class="header-icons">
+            <div class="icon-lupe"></div>
+            <a href="/dashboard">
+                <div class="icon-user"></div>
+            </a>
+        </div>
+    </div>
+</div>
 
-{{> header}}
-<h2> Recent posts</h2>
-<h1>{{ heading }} blog posts</h1>
-<p>{{ message }}</p>
+<div class="hero">
+</div>
 
-<h2>Blog Previews:</h2>
-<ul>
-    {{#blog}}
-        <li>
-            <h3>{{title}}</h3>
-            <p>{{short_text}}</p>
-            {{#preview_image}}
-                <img src="{{preview_image}}" alt="Preview Image" style="max-width: 200px;" />
-            {{/preview_image}}
-            <a href="/dashboard/blog/{{id}}">Read More</a>
-        </li>
-    {{/blog}}
-</ul>
+<div class="content">
+    <div class="content-background">
+        <h2 class="index-gradient">Recent Posts</h2>
+        <h1>BLOG POSTS</h1>
 
+        <ul class="blog-preview">
+            {{#blogs}}
+                <li class="blog-item {{#even}}{{/even}} {{^even}}odd{{/even}}">
+                    <div class="blog-image">
+                        {{#preview_image}}
+                            <div class="blog-image">
+                                <img src="/uploads/{{preview_image}}" alt="{{title}}"/>
+                            </div>
+                        {{/preview_image}}
+                    </div>
+                    <div class="blog-post">
+                        <h2>{{title}}</h2>
+                        <p>{{short_text}}</p>
+                    </div>
+                </li>
+            {{/blogs}}
+        </ul>
+
+    </div>
+    
 {{> footer}}

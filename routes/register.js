@@ -3,15 +3,15 @@ const multer = require("multer");
 const bcrypt = require("bcrypt");
 var router = express.Router();
 
-const upload = multer({ dest: "public/uploads/" });
+const upload = multer({dest: "public/uploads/"});
 
 router.get("/register", (req, res) => {
     res.render("register");
 });
 
-/* redirect to register if the password is wrong and redirect to site if right */
+/* redirect  */
 router.post("/", async (req, res) => {
-    const { username, password, first_name, last_name } = req.body;
+    const {username, password, first_name, last_name} = req.body;
 
     // Basic validation
     if (!username || !password || !first_name || !last_name) {
