@@ -40,11 +40,13 @@
             {{#blogs}}
                 <li class="blog-item {{#even}}{{/even}} {{^even}}odd{{/even}}">
                     <div class="blog-image">
-                        {{#preview_image}}
-                            <div class="blog-image">
-                                <img src="/uploads/{{preview_image}}" alt="{{title}}"/>
-                            </div>
-                        {{/preview_image}}
+                        <a href="/dashboard/blog/{{id}}" class="blog-link">
+                            {{#preview_image}}
+                                <div class="blog-image">
+                                    <img src="/uploads/{{preview_image}}" alt="{{title}}"/>
+                                </div>
+                            {{/preview_image}}
+                        </a>
                     </div>
                     <div class="blog-post">
                         <h2>{{title}}</h2>
@@ -55,5 +57,5 @@
         </ul>
 
     </div>
-    
+
 {{> footer}}

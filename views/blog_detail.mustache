@@ -1,9 +1,17 @@
 {{> header}}
-<h1>{{blog.title}}</h1>
-<p>{{blog.content}}</p>
-{{#blog.preview_image}}
-    <img src="{{blog.preview_image}}" alt="Preview Image" style="max-width: 100%;" />
-{{/blog.preview_image}}
+<div class="blog-detail">
+    <h1>{{blog.title}}</h1>
+    <p class="meta">Published on {{blog.create_date}}</p>
 
-<a href="/dashboard">Back to Dashboard</a>
+    {{#blog.preview_image}}
+        <img src="/uploads/{{blog.preview_image}}" alt="Blog Image" class="blog-detail-image">
+    {{/blog.preview_image}}
+    <div class="blog-detail-text">
+        <p class="short-text">{{blog.short_text}}</p>
+        <div class="long-text">
+            {{{blog.long_text}}}
+        </div>
+    </div>
+    <a href="/" class="button">Zurück</a>
+</div>
 {{> footer}}
