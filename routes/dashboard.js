@@ -139,21 +139,39 @@ router.post("/blog/:id/edit", isAuthenticated, async (req, res) => {
     }
 });
 
-// Delete a blog
-router.post("/blog/:id/delete", isAuthenticated, async (req, res) => {
+// Blog löschen
+router.get("/blog/:id/delete", isAuthenticated, async (req, res) => {
     const {id} = req.params;
+    const userId = req.session.userid;
+
+    console.log("Löschanfrage erhalten:");
+    console.log("Blog ID:", id);
+    console.log("Benutzer ID aus der Session:", userId);
 
     try {
-        await req.pool.query(
+        console.log("Starte Löschvorgang für Blog-ID:", id);
+
+        // Blog aus der Datenbank löschen
+        const result = await req.pool.query(
             "DELETE FROM blog WHERE id = $1 AND user_id = $2",
-            [id, req.session.userid]
+            [id, userId]
         );
-        res.redirect("/dashboard");
+
+        console.log("Datenbankantwort erhalten:", result);
+
+        if (result.rowCount === 0) {
+            console.warn(`Blog mit ID ${id} nicht gefunden oder keine Berechtigung für Benutzer ${userId}`);
+            return res.status(404).send("Blog nicht gefunden oder keine Berechtigung.");
+        }
+
+        console.log(`Blog mit ID ${id} erfolgreich gelöscht.`);
+        res.redirect("/dashboard"); // Nach dem Löschen zurück zum Dashboard
     } catch (err) {
-        console.error("Error deleting blog:", err);
-        res.status(500).send("Internal Server Error");
+        console.error("Fehler beim Löschen des Blogs:", err);
+        res.status(500).send("Interner Serverfehler");
     }
 });
+
 
 // View detailed blog page
 router.get("/blog/:id", async (req, res) => {
